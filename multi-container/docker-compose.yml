@@ -1,24 +1,31 @@
 version: "3.8"
 services:
   web-fe:
+    # this tells to build the app 
     build: .
+    # this tells to run the ommand after the build is done
     command: python app.py
+
+    # it opens the port and the mapping is done
     ports:
       - target: 5000
         published: 5000
+    # tells to connect to a network
     networks:
       - counter-net
+    # specifying volumes for the container which will be containing the data of container
     volumes:
       - type: volume
         source: counter-vol
         target: /code
+  # redis image to be pulled and get it attached to the same network
   redis:
     image: "redis:alpine"
     networks:
       counter-net:
-
+# specify network
 networks:
   counter-net:
-
+# specify volumes for the container
 volumes:
   counter-vol:
